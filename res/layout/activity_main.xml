@@ -1,0 +1,115 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <Button
+        android:id="@+id/top_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="@dimen/big_btn_layout_margin"
+        android:layout_marginRight="@dimen/big_btn_layout_margin"
+        android:layout_marginTop="6dp"
+        android:alpha="100"
+        android:background="@drawable/gray_image_btn"
+        android:gravity="center"
+        android:text="@string/top"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/big_btn_text_size" />
+
+    <LinearLayout
+        android:id="@+id/center_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp" >
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image3"
+            android:layout_width="112dp"
+            android:layout_height="112dp" />
+
+        <ImageButton
+            android:id="@+id/grid_camera"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="2dp"
+            android:scaleType="fitXY"
+            android:background="@android:color/transparent"
+            android:src="@drawable/grid_camera_btn" />
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image5"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/up_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/center_view"
+        android:layout_centerHorizontal="true" >
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image0"
+            android:layout_width="112dp"
+            android:layout_height="112dp" />
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image1"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="2dp" />
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image2"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/down_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/center_view"
+        android:layout_centerHorizontal="true" >
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image6"
+            android:layout_width="112dp"
+            android:layout_height="112dp" />
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image7"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="2dp" />
+
+        <com.comic.lazyupload.view.RightFlipImage
+            android:id="@+id/grid_image8"
+            android:layout_width="112dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="2dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/next_btn"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="@dimen/big_btn_layout_margin"
+        android:layout_marginRight="@dimen/big_btn_layout_margin"
+        android:alpha="100"
+        android:background="@drawable/gray_image_btn"
+        android:gravity="center"
+        android:text="@string/next"
+        android:textColor="#ffffffff"
+        android:textSize="@dimen/big_btn_text_size" />
+
+</RelativeLayout>

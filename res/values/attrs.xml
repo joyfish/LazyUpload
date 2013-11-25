@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ImageDownloaderView">
+
+        <!--
+             The sibling to hide after the image is downloaded 
+             and show when the image is being downloaded
+        -->
+        <attr name="hideShowSibling" format="reference" />
+    </declare-styleable>
+    <declare-styleable name="ShrinkImageButtonView">
+        <attr name="shinkSide">
+            <enum name="lefttop" value="0" />
+            <enum name="righttop" value="1" />
+            <enum name="leftbottom" value="2" />
+            <enum name="rightbottom" value="3" />
+            <enum name="center" value="4" />
+        </attr>
+    </declare-styleable>
+
+</resources>

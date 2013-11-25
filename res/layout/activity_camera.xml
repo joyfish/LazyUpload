@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <include
+        android:layout_alignParentTop="true"
+        layout="@layout/action_bar" />
+
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/capture_panel_size"
+        android:layout_marginTop="50dp"
+        android:background="#aa747474" >
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/capture_panel_size"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/footer_bg" >
+
+        <ImageButton
+            android:id="@+id/capture_btn"
+            android:layout_width="@dimen/capture_btn_size"
+            android:layout_height="@dimen/capture_btn_size"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:scaleType="centerInside"
+            android:src="@drawable/capture_btn" />
+
+        <LinearLayout
+            android:id="@+id/save_pic_panel"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/capture_panel_size"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:visibility="gone" >
+
+            <ImageButton
+                android:id="@+id/retake_btn"
+                android:layout_width="@dimen/capture_btn_size"
+                android:layout_height="@dimen/capture_btn_size"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/retake_pic_btn" />
+
+            <ImageButton
+                android:id="@+id/save_btn"
+                android:layout_width="@dimen/capture_btn_size"
+                android:layout_height="@dimen/capture_btn_size"
+                android:layout_marginLeft="@dimen/save_btn_margin"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/save_pic_btn" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
