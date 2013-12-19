@@ -21,6 +21,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Parcel;
 import android.os.RemoteException;
+import android.os.StrictMode;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -104,6 +105,11 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+				.detectDiskReads().detectDiskWrites().detectNetwork()
+				.penaltyLog().build());
+
 		mCtx = this;
 
 		setContentView(R.layout.activity_main);
@@ -294,6 +300,7 @@ public class MainActivity extends Activity {
 								mBinder.transact(
 										UploadService.CODE_UPLOADE_PHOTO,
 										pdata, null, IBinder.FLAG_ONEWAY);
+								pdata.recycle();
 							} catch (RemoteException e) {
 								e.printStackTrace();
 							}
@@ -470,7 +477,7 @@ public class MainActivity extends Activity {
 				if (!data.mText.contains("SeeXian")) {
 					continue;
 				}
-				mImageList.add(data.mThumbPic);
+				mImageList.add(data.mOriPic);
 			}
 
 			int gap = mImageList.size() % FLIP_IMAGE_VIEW_SIZE;

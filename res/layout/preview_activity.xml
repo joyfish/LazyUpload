@@ -12,13 +12,14 @@
             android:id="@+id/preview_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
+       <!--
         <ImageView
             android:id="@+id/emoji_image"
             android:layout_width="@dimen/emoji_btn_size"
             android:layout_height="@dimen/emoji_btn_size"
             android:scaleType="centerInside"
             android:src="@drawable/happy" />
+        -->
     </FrameLayout>
 
     <RelativeLayout
@@ -43,59 +44,62 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/retake_pic_btn" />
 
+                <ImageButton
+                    android:id="@+id/preview_save"
+                    android:layout_width="@dimen/capture_btn_size"
+                    android:layout_height="@dimen/capture_btn_size"
+                    android:layout_marginLeft="@dimen/save_btn_margin"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/save_pic_btn" />
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!--
+             <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/emoji_btn_size"
+            android:layout_above="@id/button_panel"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal" >
+
             <ImageButton
-                android:id="@+id/preview_save"
-                android:layout_width="@dimen/capture_btn_size"
-                android:layout_height="@dimen/capture_btn_size"
-                android:layout_marginLeft="@dimen/save_btn_margin"
+                android:id="@+id/confused"
+                android:layout_width="@dimen/emoji_btn_size"
+                android:layout_height="@dimen/emoji_btn_size"
                 android:background="@android:color/transparent"
                 android:scaleType="centerInside"
-                android:src="@drawable/save_pic_btn" />
+                android:src="@drawable/confused" />
+
+            <ImageButton
+                android:id="@+id/happy"
+                android:layout_width="@dimen/emoji_btn_size"
+                android:layout_height="@dimen/emoji_btn_size"
+                android:layout_marginLeft="@dimen/emoji_margin"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/happy" />
+
+            <ImageButton
+                android:id="@+id/sad"
+                android:layout_width="@dimen/emoji_btn_size"
+                android:layout_height="@dimen/emoji_btn_size"
+                android:layout_marginLeft="@dimen/emoji_margin"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/sad" />
+
+            <ImageButton
+                android:id="@+id/angry"
+                android:layout_width="@dimen/emoji_btn_size"
+                android:layout_height="@dimen/emoji_btn_size"
+                android:layout_marginLeft="@dimen/emoji_margin"
+                android:background="@android:color/transparent"
+                android:scaleType="centerInside"
+                android:src="@drawable/angry" />
         </LinearLayout>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/emoji_btn_size"
-        android:layout_above="@id/button_panel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
-        android:orientation="horizontal" >
-
-        <ImageButton
-            android:id="@+id/confused"
-            android:layout_width="@dimen/emoji_btn_size"
-            android:layout_height="@dimen/emoji_btn_size"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/confused" />
-
-        <ImageButton
-            android:id="@+id/happy"
-            android:layout_width="@dimen/emoji_btn_size"
-            android:layout_height="@dimen/emoji_btn_size"
-            android:layout_marginLeft="@dimen/emoji_margin"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/happy" />
-
-        <ImageButton
-            android:id="@+id/sad"
-            android:layout_width="@dimen/emoji_btn_size"
-            android:layout_height="@dimen/emoji_btn_size"
-            android:layout_marginLeft="@dimen/emoji_margin"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/sad" />
-
-        <ImageButton
-            android:id="@+id/angry"
-            android:layout_width="@dimen/emoji_btn_size"
-            android:layout_height="@dimen/emoji_btn_size"
-            android:layout_marginLeft="@dimen/emoji_margin"
-            android:background="@android:color/transparent"
-            android:scaleType="centerInside"
-            android:src="@drawable/angry" />
-    </LinearLayout>
+        -->
 
 </RelativeLayout>

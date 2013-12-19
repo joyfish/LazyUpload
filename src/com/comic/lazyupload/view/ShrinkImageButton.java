@@ -38,6 +38,8 @@ public class ShrinkImageButton extends ImageButton {
 				.getBitmap();
 
 		Loge.i("shrinkSide = " + shrinkSide);
+		
+		array.recycle();
 	}
 	
 	@Override

@@ -40,27 +40,18 @@ public class PreviewActivity extends Activity {
 
 	boolean enableFrame = true;
 
-	JniBitmapHolder bitmapHolder = new JniBitmapHolder();
+	private JniBitmapHolder bitmapHolder = null;
 
 	private ImageView mPreviewImage;
-	private ImageView mEmojiImage;
+//	private ImageView mEmojiImage;
 
-	private ImageButton mSadBtn, mHappyBtn, mConfusedBtn, mAngryBtn, mSaveBtn,
-			mRetakeBtn;
+	private ImageButton mSaveBtn, mRetakeBtn;
 
 	private String mImagePath = null;
 
 	private Bitmap mImage;
 
 	private int mScreenWidth;
-
-	private ScaleAnimation sAnimation = new ScaleAnimation(0.8f, 0.8f, 0.8f,
-			0.8f, Animation.RELATIVE_TO_SELF, 0.8f, Animation.RELATIVE_TO_SELF,
-			0.8f);
-
-	private int[] emojis = { R.drawable.confused, R.drawable.happy,
-			R.drawable.sad, R.drawable.angry };
-	private int mSelectEmoji = R.drawable.happy;
 
 	private int mOrientation = 0;
 
@@ -78,69 +69,21 @@ public class PreviewActivity extends Activity {
 				RelativeLayout.LayoutParams.MATCH_PARENT, mScreenWidth);
 		mPreviewImage.setLayoutParams(previewParams);
 
-		mEmojiImage = (ImageView) findViewById(R.id.emoji_image);
-		FrameLayout.LayoutParams emojiParams = new FrameLayout.LayoutParams(
-				mScreenWidth / 10, mScreenWidth / 10);
-		emojiParams.setMargins(mScreenWidth / 50, mScreenWidth / 50, 0, 0);
-		mEmojiImage.setLayoutParams(emojiParams);
+//		mEmojiImage = (ImageView) findViewById(R.id.emoji_image);
+//		FrameLayout.LayoutParams emojiParams = new FrameLayout.LayoutParams(
+//				mScreenWidth / 10, mScreenWidth / 10);
+//		emojiParams.setMargins(mScreenWidth / 50, mScreenWidth / 50, 0, 0);
+//		mEmojiImage.setLayoutParams(emojiParams);
 
-		mSadBtn = (ImageButton) findViewById(R.id.sad);
-		mHappyBtn = (ImageButton) findViewById(R.id.happy);
-		mConfusedBtn = (ImageButton) findViewById(R.id.confused);
-		mAngryBtn = (ImageButton) findViewById(R.id.angry);
 		mSaveBtn = (ImageButton) findViewById(R.id.preview_save);
 		mRetakeBtn = (ImageButton) findViewById(R.id.preview_retake);
 
-		mSadBtn.setOnClickListener(mSadClicked);
-		mHappyBtn.setOnClickListener(mHappyClicked);
-		mConfusedBtn.setOnClickListener(mConfusedClicked);
-		mAngryBtn.setOnClickListener(mAngryClicked);
 		mSaveBtn.setOnClickListener(mSaveClicked);
 		mRetakeBtn.setOnClickListener(mRetakeClicked);
 
 		getDataFromExtra();
 		new SavePicTask().execute();
 	}
-
-	private View.OnClickListener mSadClicked = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			mSadBtn.startAnimation(sAnimation);
-			mEmojiImage.setImageResource(R.drawable.sad);
-			mSelectEmoji = emojis[2];
-		}
-	};
-
-	private View.OnClickListener mHappyClicked = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			mHappyBtn.startAnimation(sAnimation);
-			mEmojiImage.setImageResource(R.drawable.happy);
-			mSelectEmoji = emojis[1];
-		}
-	};
-
-	private View.OnClickListener mConfusedClicked = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			mConfusedBtn.startAnimation(sAnimation);
-			mEmojiImage.setImageResource(R.drawable.confused);
-			mSelectEmoji = emojis[0];
-		}
-	};
-
-	private View.OnClickListener mAngryClicked = new View.OnClickListener() {
-
-		@Override
-		public void onClick(View v) {
-			mAngryBtn.startAnimation(sAnimation);
-			mEmojiImage.setImageResource(R.drawable.angry);
-			mSelectEmoji = emojis[3];
-		}
-	};
 
 	private View.OnClickListener mSaveClicked = new View.OnClickListener() {
 
@@ -150,7 +93,7 @@ public class PreviewActivity extends Activity {
 			new Thread(new Runnable() {
 				@Override
 				public void run() {
-					saveImageWithEmoji();
+					// saveImageWithEmoji();
 					mHandler.sendEmptyMessage(0);
 				}
 			}).start();
@@ -186,30 +129,44 @@ public class PreviewActivity extends Activity {
 	}
 
 	void getImage() {
-		if (mImagePath != null) {
-			BitmapFactory.Options opts = new BitmapFactory.Options();
-			opts.inJustDecodeBounds = true;
+		new Thread(new Runnable() {
 
-			BitmapFactory.decodeFile(mImagePath, opts);
+			@Override
+			public void run() {
+				if (mImagePath != null) {
+					BitmapFactory.Options opts = new BitmapFactory.Options();
+					opts.inJustDecodeBounds = true;
 
-			int sampleSize = (int) (opts.outWidth / mScreenWidth);
+					BitmapFactory.decodeFile(mImagePath, opts);
 
-			Loge.i("sampleSize = " + sampleSize);
+					int sampleSize = (int) (opts.outWidth / mScreenWidth);
 
-			if (sampleSize < 1) {
-				sampleSize = 1;
+					Loge.i("sampleSize = " + sampleSize);
+
+					if (sampleSize < 1) {
+						sampleSize = 1;
+					}
+
+					opts.inSampleSize = sampleSize;
+					opts.inJustDecodeBounds = false;
+					opts.inPurgeable = true;
+
+					mImage = BitmapFactory.decodeFile(mImagePath, opts);
+
+					if (mHandler != null) {
+						mHandler.post(new Runnable() {
+							@Override
+							public void run() {
+								if (mImage != null) {
+									mPreviewImage.setImageBitmap(mImage);
+								}
+							}
+						});
+					}
+				}
 			}
+		}).start();
 
-			opts.inSampleSize = sampleSize;
-			opts.inJustDecodeBounds = false;
-			opts.inPurgeable = true;
-
-			mImage = BitmapFactory.decodeFile(mImagePath, opts);
-
-			if (mImage != null) {
-				mPreviewImage.setImageBitmap(mImage);
-			}
-		}
 	}
 
 	@Override
@@ -279,57 +236,61 @@ public class PreviewActivity extends Activity {
 		file.delete();
 	}
 
-	private void saveImageWithEmoji() {
-
-		ByteArrayOutputStream ostream = new ByteArrayOutputStream();
-
-		Bitmap withEmoji = null;
-		try {
-			withEmoji = addEmojiOnPhoto(mSelectEmoji);
-		} catch (OutOfMemoryError e) {
-			e.printStackTrace();
-		}
-
-		if (withEmoji != null) {
-			if (mImage != null && !mImage.isRecycled()) {
-				mImage.recycle();
-				mImage = null;
-			}
-			withEmoji.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-			deleteImageFile();
-		} else {
-			mImage.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
-			deleteImageFile();
-		}
-
-		byte[] byteArray = ostream.toByteArray();
-
-		if (withEmoji != null && !withEmoji.isRecycled()) {
-			withEmoji.recycle();
-			withEmoji = null;
-		}
-		if (mImage != null && !mImage.isRecycled()) {
-			mImage.recycle();
-			mImage = null;
-		}
-
-		File pictureFile = new File(mImagePath);
-		try {
-			FileOutputStream fos = new FileOutputStream(pictureFile);
-			fos.write(byteArray);
-			fos.close();
-		} catch (FileNotFoundException e) {
-			Loge.d("File not found: " + e.getMessage());
-		} catch (IOException e) {
-			Loge.d("Error accessing file: " + e.getMessage());
-		}
-	}
+	// private void saveImageWithEmoji() {
+	//
+	// ByteArrayOutputStream ostream = new ByteArrayOutputStream();
+	//
+	// Bitmap withEmoji = null;
+	// try {
+	// withEmoji = addEmojiOnPhoto(mSelectEmoji);
+	// } catch (OutOfMemoryError e) {
+	// e.printStackTrace();
+	// }
+	//
+	// if (withEmoji != null) {
+	// if (mImage != null && !mImage.isRecycled()) {
+	// mImage.recycle();
+	// mImage = null;
+	// }
+	// withEmoji.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+	// deleteImageFile();
+	// } else {
+	// mImage.compress(Bitmap.CompressFormat.JPEG, 100, ostream);
+	// deleteImageFile();
+	// }
+	//
+	// byte[] byteArray = ostream.toByteArray();
+	//
+	// if (withEmoji != null && !withEmoji.isRecycled()) {
+	// withEmoji.recycle();
+	// withEmoji = null;
+	// }
+	// if (mImage != null && !mImage.isRecycled()) {
+	// mImage.recycle();
+	// mImage = null;
+	// }
+	//
+	// File pictureFile = new File(mImagePath);
+	// try {
+	// FileOutputStream fos = new FileOutputStream(pictureFile);
+	// fos.write(byteArray);
+	// fos.close();
+	// } catch (FileNotFoundException e) {
+	// Loge.d("File not found: " + e.getMessage());
+	// } catch (IOException e) {
+	// Loge.d("Error accessing file: " + e.getMessage());
+	// }
+	// }
 
 	class SavePicTask extends AsyncTask<Void, Void, String> {
 
 		@Override
 		protected String doInBackground(Void... params) {
 			Loge.d("SavePicTask doInBackground");
+
+			if (bitmapHolder == null) {
+				bitmapHolder = new JniBitmapHolder();
+			}
 
 			BitmapFactory.Options opts = new BitmapFactory.Options();
 			opts.inJustDecodeBounds = true;
@@ -399,7 +360,7 @@ public class PreviewActivity extends Activity {
 			}
 			Bitmap frameBitmap = null;
 			try {
-				frameBitmap = useFrame(rotateBitmap);
+				// frameBitmap = useFrame(rotateBitmap);
 				if (frameBitmap != null) {
 					if (rotateBitmap != null && !rotateBitmap.isRecycled()) {
 						rotateBitmap.recycle();
